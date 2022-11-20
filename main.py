@@ -1,13 +1,13 @@
 from mainfunctions import queryMyIP, writeIPtoJsonFile
-from exceptions import ChangeCacheException, UpdateCloudException
+from exceptions import ChangeCacheException, UpdateCloudException, UnableToGetCurrentIPException
 import tempfile, os
 from cache import checkCacheFile, readJsonFile, checkIPinJson
 from exitcode import ExitCode
 
+exitCode: ExitCode = ExitCode.SUCCESS_NO_CHANGE
 
 def main():
     try:
-        exitCode: ExitCode = ExitCode.SUCCESS_NO_CHANGE
         filepath = tempfile.gettempdir() + '/' + 'IPAgent.json'
         current = queryMyIP() #Step 1: query my current IP address.
         
@@ -17,16 +17,17 @@ def main():
         checkIPinJson(json, current) #If JSON is empty or IP address won't match ChangeCacheException will be thrown.
         
         #Step 3: TODO: check cloud and Update.
-
-    except ChangeCacheException as e: #update cache process
+    except UnableToGetCurrentIPException:
+        exitCode = ExitCode.UNABLE_TO_GET_CURRENT_IP
+        #TODO in all exceptions add prints and logging
+    except ChangeCacheException as e: 
         writeIPtoJsonFile(filepath, current)
         exitCode = ExitCode.SUCCESS_W_CHANGE
     except UpdateCloudException:
         #TODO: Update Cloud
-        print()
         exitCode = ExitCode.SUCCESS_W_CHANGE
     except Exception as e:
-        print(e)
+        #TODO print and log trown trace
         exitCode = ExitCode.GENERAL_ERROR
 
     finally:

@@ -1,4 +1,4 @@
-![License](https://img.shields.io/github/license/arikregev/ipagent)
+![License](https://img.shields.io/github/license/arikregev/ipagent?style=plastic)
 
 # IPAgent
 -------------------
@@ -14,5 +14,5 @@ The solution will not involve Dynamic DNS, but will allow change of client local
 
 ## Copyright & License
 -------------------
-Permission are granted under the terms of the MIT license. 
+Permissions are granted under the terms of the MIT license. 
 See the LICENSE file for the full license.
