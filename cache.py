@@ -11,7 +11,6 @@ def readJsonFile(filePath):
             return json.load(jsonFile)
     except:
         raise ChangeCacheException()
-        #If cache can't be read terminate? or continue without cahce and validate with cloud?
     finally:
         jsonFile.close()
 
